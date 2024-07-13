@@ -4,7 +4,8 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls", "tsserver" }
+local util = require "lspconfig/util"
+local servers = { "html", "cssls", "tsserver", "pyright" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -14,6 +15,23 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  root_dir = function(fname)
+    return util.root_pattern(".git", "manage.py", "pyproject.toml", "setup.py")(fname) or util.path.dirname(fname)
+  end,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+}
 
 -- typescript
 lspconfig.tsserver.setup {
