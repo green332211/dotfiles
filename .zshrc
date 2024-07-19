@@ -28,6 +28,19 @@ export PATH=$PATH:/usr/bin/gcc
 # ---- Eza (better ls) -----
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 
+# Neovim
+alias v=nvim
+alias vim=nvim
+
+# Tmux
+alias t=tmux
+
+# Dir list, nav
+alias cl="clear"
+
+# App shortcuts
+alias lg=lazygit
+
 # ---- Thefuck alias ----
 if command -v thefuck &> /dev/null; then
   eval $(thefuck --alias)

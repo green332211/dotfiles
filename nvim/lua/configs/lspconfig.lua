@@ -28,6 +28,13 @@ lspconfig.pyright.setup {
       analysis = {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
+        typeCheckingMode = "off",
+        diagosticSeverityOverrides = {
+          reportMissingImports = "none",
+          reportMissingTypeStubs = "none",
+          reportGeneralTypeIssues = "none",
+          reportUnknownMemberType = "none",
+        },
       },
     },
   },
@@ -38,4 +45,11 @@ lspconfig.tsserver.setup {
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
+}
+
+lspconfig.emmet_ls.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 }

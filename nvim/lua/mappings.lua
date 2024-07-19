@@ -14,6 +14,12 @@ map("n", "<leader>cx", function()
   require("nvchad.tabufline").closeAllBufs()
 end, { desc = "Close All Buffers" })
 
+-- Горячие клавиши для показа ошибок
+map('n', '<F6>', ':lua vim.diagnostic.show()<CR>', { desc = "Open diagnostic"})
+
+-- Горячие клавиши для скрытия ошибок
+map('n', '<F5>', ':lua vim.diagnostic.hide()<CR>', { desc = "Close diagnostic"})
+
 map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find Todo" })
 map("n", "\\", "<cmd>:vsplit <CR>", { desc = "Vertical Split" })
 map("n", "<c-l>", "<cmd>:TmuxNavigateRight<cr>", { desc = "Tmux Right" })
