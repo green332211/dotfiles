@@ -43,6 +43,7 @@ return {
         "clangd",
         "clang-format",
         "node-debug2-adapter",
+        "debugpy",
         "eslint-lsp",
         "js-debug-adapter",
         "typescript-language-server",
@@ -135,6 +136,34 @@ return {
         command = "node-debug2-adapter",
         args = {},
       }
+      dap.configurations.python = {
+        {
+          type = "python",
+          request = "launch",
+          name = "Launch Python",
+          program = "${file}",
+          pythonPath = function()
+            local venv_path = os.getenv "VIRTUAL_ENV"
+            if venv_path then
+              return venv_path .. "/bin/python"
+            else
+              return "/usr/bin/python"
+            end
+          end,
+        },
+      }
+      dap.adapters.python = {
+        type = "executable",
+        command = function()
+          local venv_path = os.getenv "VIRTUAL_ENV"
+          if venv_path then
+            return venv_path .. "/bin/python"
+          else
+            return os.getenv "HOME" .. "/path/to/venv/bin/python"
+          end
+        end,
+        args = { "-m", "debugpy.adapter" },
+      }
     end,
     dependencies = {
       "mxsdev/nvim-dap-vscode-js",
@@ -160,6 +189,19 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap",
     },
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    config = function(_, opts)
+      local venv_path = os.getenv "VIRTUAL_ENV"
+      local path = venv_path and venv_path .. "/bin/python" or "/usr/bin/python"
+      require("dap-python").setup(path)
+    end,
   },
   {
     "folke/neodev.nvim",
@@ -196,6 +238,16 @@ return {
     lazy = false,
     config = function()
       require("todo-comments").setup()
+    end,
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup {
+        -- Configuration here, or leave empty to use defaults
+      }
     end,
   },
   --
