@@ -20,6 +20,9 @@ map('n', '<F6>', ':lua vim.diagnostic.show()<CR>', { desc = "Open diagnostic"})
 -- Горячие клавиши для скрытия ошибок
 map('n', '<F5>', ':lua vim.diagnostic.hide()<CR>', { desc = "Close diagnostic"})
 
+-- Горячие клавиши для сворачивая дерева файлов
+-- map('n', '<F7>', '<cmd>NvimTreeCollapse<CR>', {desc = "Collapse Tree"})
+
 map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find Todo" })
 map("n", "\\", "<cmd>:vsplit <CR>", { desc = "Vertical Split" })
 map("n", "<c-l>", "<cmd>:TmuxNavigateRight<cr>", { desc = "Tmux Right" })

@@ -8,5 +8,8 @@ end
 
 -- add yours here!
 
--- local o = vim.o
+local o = vim.o
+o.foldmethod = 'expr'
+vim.opt.foldlevel = 99
+o.foldexpr = 'nvim_treesitter#foldexpr()'
 -- o.cursorlineopt ='both' -- to enable cursorline!
