@@ -1,5 +1,6 @@
 require "nvchad.options"
 
+-- add yours here!
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -9,7 +10,8 @@ end
 -- add yours here!
 
 local o = vim.o
-o.foldmethod = 'expr'
+o.foldmethod = "expr"
 vim.opt.foldlevel = 99
-o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldexpr = "nvim_treesitter#foldexpr()"
+-- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!

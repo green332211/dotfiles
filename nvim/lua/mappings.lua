@@ -4,8 +4,6 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
--- Basic
-
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 map("i", "jj", "<ESC>")
@@ -19,9 +17,6 @@ map('n', '<F6>', ':lua vim.diagnostic.show()<CR>', { desc = "Open diagnostic"})
 
 -- Горячие клавиши для скрытия ошибок
 map('n', '<F5>', ':lua vim.diagnostic.hide()<CR>', { desc = "Close diagnostic"})
-
--- Горячие клавиши для сворачивая дерева файлов
--- map('n', '<F7>', '<cmd>NvimTreeCollapse<CR>', {desc = "Collapse Tree"})
 
 map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find Todo" })
 map("n", "\\", "<cmd>:vsplit <CR>", { desc = "Vertical Split" })
@@ -102,5 +97,4 @@ end, { desc = "Toogle Terminal Horizontal" })
 map("t", "<C-f>", function()
   require("nvchad.term").toggle { pos = "float" }
 end, { desc = "Toogle Terminal Float" })
-
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

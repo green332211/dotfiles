@@ -1,11 +1,18 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = "BufWritePre", -- uncomment for format on save
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
+  },
+
+  -- These are some examples, uncomment them if you want to see them work!
+  {
+    "neovim/nvim-lspconfig",
     config = function()
-      require "configs.conform"
+      require "configs.lspconfig"
     end,
   },
+
   {
     "stevearc/dressing.nvim",
     lazy = false,
@@ -42,7 +49,6 @@ return {
         "eslint_d",
         "clangd",
         "clang-format",
-        "node-debug2-adapter",
         "debugpy",
         "eslint-lsp",
         "js-debug-adapter",
@@ -120,22 +126,124 @@ return {
       if not ok then
         return
       end
-      dap.configurations.typescript = {
-        {
-          type = "node2",
-          name = "node attach",
-          request = "attach",
-          program = "${file}",
-          cwd = vim.fn.getcwd(),
-          sourceMaps = true,
-          protocol = "inspector",
+
+      -- Настройка адаптера для JavaScript/TypeScript/React
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "js-debug-adapter", -- Убедитесь, что js-debug-adapter установлен через Mason
+          args = { "${port}" },
         },
       }
-      dap.adapters.node2 = {
-        type = "executable",
-        command = "node-debug2-adapter",
-        args = {},
+
+      -- Конфигурация для TypeScript
+      dap.configurations.typescript = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          protocol = "inspector",
+          runtimeExecutable = "node",
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach to process",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+        },
       }
+
+      -- Конфигурация для JavaScript
+      dap.configurations.javascript = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          protocol = "inspector",
+          runtimeExecutable = "node",
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach to process",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+        },
+      }
+
+      -- Конфигурация для TypeScript React (.tsx)
+      dap.configurations.typescriptreact = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file (React)",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          protocol = "inspector",
+          runtimeExecutable = "node",
+          -- Дополнительные настройки для React, если нужно
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach to process (React)",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+        },
+      }
+
+      -- Конфигурация для JavaScript React (.jsx)
+      dap.configurations.javascriptreact = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file (React)",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          protocol = "inspector",
+          runtimeExecutable = "node",
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach to process (React)",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+          sourceMaps = true,
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+        },
+      }
+
+      -- Настройка Python (оставляем как есть)
       dap.configurations.python = {
         {
           type = "python",
@@ -169,6 +277,62 @@ return {
       "mxsdev/nvim-dap-vscode-js",
     },
   },
+  -- {
+  --   "mfussenegger/nvim-dap",
+  --   config = function()
+  --     local ok, dap = pcall(require, "dap")
+  --     if not ok then
+  --       return
+  --     end
+  --     dap.configurations.typescript = {
+  --       {
+  --         type = "node2",
+  --         name = "node attach",
+  --         request = "attach",
+  --         program = "${file}",
+  --         cwd = vim.fn.getcwd(),
+  --         sourceMaps = true,
+  --         protocol = "inspector",
+  --       },
+  --     }
+  --     dap.adapters.node2 = {
+  --       type = "executable",
+  --       command = "node-debug2-adapter",
+  --       args = {},
+  --     }
+  --     dap.configurations.python = {
+  --       {
+  --         type = "python",
+  --         request = "launch",
+  --         name = "Launch Python",
+  --         program = "${file}",
+  --         pythonPath = function()
+  --           local venv_path = os.getenv "VIRTUAL_ENV"
+  --           if venv_path then
+  --             return venv_path .. "/bin/python"
+  --           else
+  --             return "/usr/bin/python"
+  --           end
+  --         end,
+  --       },
+  --     }
+  --     dap.adapters.python = {
+  --       type = "executable",
+  --       command = function()
+  --         local venv_path = os.getenv "VIRTUAL_ENV"
+  --         if venv_path then
+  --           return venv_path .. "/bin/python"
+  --         else
+  --           return os.getenv "HOME" .. "/path/to/venv/bin/python"
+  --         end
+  --       end,
+  --       args = { "-m", "debugpy.adapter" },
+  --     }
+  --   end,
+  --   dependencies = {
+  --     "mxsdev/nvim-dap-vscode-js",
+  --   },
+  -- },
   {
     "rcarriga/nvim-dap-ui",
     config = function()
@@ -250,7 +414,10 @@ return {
       }
     end,
   },
-  --
+
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
+
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {
