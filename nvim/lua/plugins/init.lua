@@ -29,13 +29,6 @@ return {
       "TmuxNavigatePrevious",
     },
   },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("nvchad.configs.lspconfig").defaults()
-      require "configs.lspconfig"
-    end,
-  },
   { "nvim-neotest/nvim-nio" },
   {
     "williamboman/mason.nvim",
@@ -395,6 +388,9 @@ return {
     "folke/trouble.nvim",
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("trouble").setup {}
+    end,
   },
   {
     "folke/todo-comments.nvim",

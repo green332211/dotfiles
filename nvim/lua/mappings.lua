@@ -13,10 +13,10 @@ map("n", "<leader>cx", function()
 end, { desc = "Close All Buffers" })
 
 -- Горячие клавиши для показа ошибок
-map('n', '<F6>', ':lua vim.diagnostic.show()<CR>', { desc = "Open diagnostic"})
+map("n", "<F6>", ":lua vim.diagnostic.show()<CR>", { desc = "Open diagnostic" })
 
 -- Горячие клавиши для скрытия ошибок
-map('n', '<F5>', ':lua vim.diagnostic.hide()<CR>', { desc = "Close diagnostic"})
+map("n", "<F5>", ":lua vim.diagnostic.hide()<CR>", { desc = "Close diagnostic" })
 
 map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find Todo" })
 map("n", "\\", "<cmd>:vsplit <CR>", { desc = "Vertical Split" })
@@ -39,14 +39,8 @@ map("n", "<leader>dn", function()
   require("dap").step_over()
 end, { desc = "Step Over" })
 
--- Trouble
-
-map("n", "<leader>qx", "<cmd>TroubleToggle<CR>", { desc = "Open Trouble" })
-map("n", "<leader>qw", "<cmd>TroubleToggle workspace_diagnostics<CR>", { desc = "Open Workspace Trouble" })
-map("n", "<leader>qd", "<cmd>TroubleToggle document_diagnostics<CR>", { desc = "Open Document Trouble" })
-map("n", "<leader>qq", "<cmd>TroubleToggle quickfix<CR>", { desc = "Open Quickfix" })
-map("n", "<leader>ql", "<cmd>TroubleToggle loclist<CR>", { desc = "Open Location List" })
-map("n", "<leader>qt", "<cmd>TodoTrouble<CR>", { desc = "Open Todo Trouble" })
+-- -- Trouble
+map("n", "<leader>qq", "<cmd>Trouble diagnostics<CR>", { desc = "Open trouble" })
 
 -- Tests
 map("n", "<leader>tt", function()
@@ -97,4 +91,4 @@ end, { desc = "Toogle Terminal Horizontal" })
 map("t", "<C-f>", function()
   require("nvchad.term").toggle { pos = "float" }
 end, { desc = "Toogle Terminal Float" })
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
