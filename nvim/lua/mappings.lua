@@ -52,20 +52,6 @@ end, { desc = "Run file test" })
 map("n", "<leader>to", ":Neotest output<CR>", { desc = "Show test output" })
 map("n", "<leader>ts", ":Neotest summary<CR>", { desc = "Show test summary" })
 
--- Debug
-map("n", "<leader>du", function()
-  require("dapui").toggle()
-end, { desc = "Toggle Debug UI" })
-map("n", "<leader>db", function()
-  require("dap").toggle_breakpoint()
-end, { desc = "Toggle Breakpoint" })
-map("n", "<leader>ds", function()
-  require("dap").continue()
-end, { desc = "Start" })
-map("n", "<leader>dn", function()
-  require("dap").step_over()
-end, { desc = "Step Over" })
-
 -- Git
 map("n", "<leader>gl", ":Flog<CR>", { desc = "Git Log" })
 map("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Git File History" })

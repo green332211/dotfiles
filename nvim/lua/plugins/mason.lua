@@ -1,0 +1,30 @@
+return {
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "lua-language-server",
+        "stylua",
+        "html-lsp",
+        "css-lsp",
+        "prettier",
+        "eslint_d",
+        "clangd",
+        "clang-format",
+        "debugpy",
+        "eslint-lsp",
+        "js-debug-adapter",
+        "typescript-language-server",
+        "emmet-ls",
+        "pyright",
+        "isort",
+        "black",
+        "pylint",
+        "eslint_d",
+        "marksman",
+        "markdownlint-cli2",
+        "mdformat",
+      },
+    },
+  },
+}

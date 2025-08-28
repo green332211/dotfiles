@@ -7,11 +7,11 @@ local M = {}
 
 M.base46 = {
   theme = "kanagawa",
-  -- transparency = true,
+  transparency = true,
 
   -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
+    -- 	Comment = { italic = true },
+    -- 	["@comment"] = { italic = true },
   -- },
 }
 
@@ -26,12 +26,36 @@ M.nvdash = {
     "░░███  ░░███  ░███    ░███  ░███ ░   █ ░███ ░   █ ░███  ░░█████ ",
     " ░░█████████  █████   █████ ██████████ ██████████ █████  ░░█████",
     "  ░░░░░░░░░  ░░░░░   ░░░░░ ░░░░░░░░░░ ░░░░░░░░░░ ░░░░░    ░░░░░ ",
+    "                                                                ",
+    "                       Powered By  eovim                      ",
+    "                                                                ",
   },
 }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+
+M.mason = {
+  pkgs = {
+    "lua-language-server",
+    "stylua",
+    "html-lsp",
+    "css-lsp",
+    "prettier",
+    "eslint_d",
+    "clangd",
+    "clang-format",
+    "debugpy",
+    "eslint-lsp",
+    "js-debug-adapter",
+    "typescript-language-server",
+    "emmet-ls",
+    "pyright",
+    "isort",
+    "black",
+    "pylint",
+    "eslint_d",
+    "marksman",
+    "markdownlint-cli2",
+    "mdformat",
+  },
+}
 
 return M
