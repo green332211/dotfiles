@@ -44,8 +44,13 @@ alias v=nvim
 alias vim=nvim
 
 # Tmux
-# alias t=tmux
-alias t='tmux attach-session -t "$(tmux list-sessions -F "#{session_name}" | head -n 1)" 2>/dev/null || echo "Существующих сессий нет."'
+function t() {
+  if tmux has-session 2>/dev/null; then
+    tmux attach -t "$(tmux list-sessions -F "#{session_name}" | head -n1)"
+  else
+    echo "Существующих сессий нет."
+  fi
+}
 
 # Clear
 alias cl="clear"
