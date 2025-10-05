@@ -38,6 +38,7 @@ export GOOGLE_CLOUD_PROJECT="totemic-cursor-464112-a2"
 
 # ---- Eza (better ls) -----
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias list="eza -la --group --header"
 
 # Neovim
 alias v=nvim
@@ -46,9 +47,9 @@ alias vim=nvim
 # Tmux
 function t() {
   if tmux has-session 2>/dev/null; then
-    tmux attach -t "$(tmux list-sessions -F "#{session_name}" | head -n1)"
+    tmux attach-session -t "$(tmux list-sessions -F "#{session_name}" | head -n1)"
   else
-    echo "Существующих сессий нет."
+    echo "No tmux sessions"
   fi
 }
 
